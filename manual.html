@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>belier-start 사용 설명서</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Apple SD Gothic Neo", "Pretendard", "Malgun Gothic", sans-serif;
+    color: #1a1a1a; line-height: 1.7; max-width: 760px; margin: 0 auto;
+    padding: 48px 40px; font-size: 15px;
+  }
+  h1 { font-size: 30px; margin: 0 0 4px; letter-spacing: -0.5px; }
+  .sub { color: #666; font-size: 14px; margin: 0 0 32px; padding-bottom: 20px; border-bottom: 2px solid #111; }
+  h2 { font-size: 21px; margin: 36px 0 14px; padding-top: 18px; border-top: 1px solid #e5e5e5; }
+  h2:first-of-type { border-top: none; padding-top: 0; }
+  p { margin: 10px 0; }
+  code {
+    background: #f4f4f5; padding: 2px 6px; border-radius: 4px;
+    font-family: "SF Mono", Menlo, monospace; font-size: 13px;
+  }
+  pre {
+    background: #1a1a1a; color: #f4f4f5; padding: 16px 18px; border-radius: 8px;
+    overflow-x: auto; font-size: 12.5px; line-height: 1.5; white-space: pre-wrap; word-break: break-all;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+  th, td { border: 1px solid #ddd; padding: 9px 12px; text-align: left; vertical-align: top; }
+  th { background: #f4f4f5; font-weight: 700; }
+  .step { background: #f9f9fb; border-left: 4px solid #111; padding: 14px 18px; margin: 14px 0; border-radius: 0 6px 6px 0; }
+  .tip { background: #fef9e7; border-left: 4px solid #f1c40f; padding: 12px 16px; margin: 14px 0; border-radius: 0 6px 6px 0; font-size: 14px; }
+  .ok { color: #1a7f37; font-weight: 700; }
+  .q { font-weight: 700; margin-top: 16px; }
+  .a { color: #444; margin-top: 2px; }
+  .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e5e5e5; color: #888; font-size: 13px; }
+  @page { margin: 16mm; }
+</style>
+</head>
+<body>
+
+<h1>📖 belier-start 사용 설명서</h1>
+<p class="sub">BELIER 팀이 Claude Code를 쉽게 쓰기 위한 도구입니다. 스킬 이름을 외울 필요 없이, <b>/belier-start 하나만</b> 기억하세요.</p>
+
+<h2>1. 이게 뭐예요?</h2>
+<p>작업할 때 <b>"지금 어떤 도구(스킬)를 써야 하는지" 알아서 골라주는 안내자</b>예요.</p>
+<p>비유하면 <b>내비게이션</b> 같은 거예요. 목적지만 말하면 알아서 길을 안내하듯, "지금 뭐 하려고요?"만 답하면 알맞은 스킬을 대신 실행해 줍니다.</p>
+
+<h2>2. 설치 (처음 딱 한 번만)</h2>
+<p>컴퓨터당 한 번만 하면 됩니다. 두 번 할 필요 없어요.</p>
+<div class="step"><b>① Claude Code를 엽니다.</b></div>
+<div class="step"><b>② 아래 한 줄을 그대로 복사해서 붙여넣고 보냅니다:</b>
+<pre><code>belier-start 설치: git clone --depth 1 https://github.com/belier-bong/belier-start ~/.claude/skills/belier-start 를 실행한 다음 /belier-start 를 실행해줘</code></pre></div>
+<div class="step"><b>③ 기다립니다.</b> 필요한 도구들이 자동으로 깔립니다 (1~2분).</div>
+<div class="step"><b>④ 마지막에 "codex login을 한 번 하세요" 안내가 뜨면</b> → 코드 리뷰 기능을 쓸 사람만 하면 됩니다. 안 쓸 거면 그냥 넘어가도 돼요.</div>
+<p class="ok">✅ 여기까지 하면 설치 끝입니다.</p>
+
+<h2>3. 매일 쓰는 법</h2>
+<p>새 작업을 시작하거나, <b>"뭐부터 하지?"</b> 싶을 때 Claude Code에 이렇게 치세요:</p>
+<pre><code>/belier-start</code></pre>
+<p>그러면 이렇게 진행돼요:</p>
+<table>
+<tr><td>1</td><td>🤖 "지금 어느 단계예요?" 하고 물어봄</td></tr>
+<tr><td>2</td><td>당신이 골라줌 (아래 4단계 중 하나)</td></tr>
+<tr><td>3</td><td>🤖 알맞은 스킬을 자동 실행 + "이거 썼어요" 알려줌</td></tr>
+<tr><td>4</td><td>🤖 단계가 끝나면 "다음 단계로 갈까요?" 물어봄</td></tr>
+</table>
+
+<h2>4. 4단계가 뭐예요?</h2>
+<p>일을 4단계로 나눠서, 단계마다 맞는 도구를 씁니다.</p>
+<table>
+<tr><th>단계</th><th>언제</th><th>무슨 일을 하나</th></tr>
+<tr><td><b>1. 기획</b></td><td>새 기능을 시작할 때</td><td>뭘 만들지, 만들 가치가 있는지 정리</td></tr>
+<tr><td><b>2. 스펙</b></td><td>만들기 전에</td><td>어떻게 만들지 설계·계획</td></tr>
+<tr><td><b>3. 개발·검증</b></td><td>실제로 만들 때</td><td>코드 작성 + 점검</td></tr>
+<tr><td><b>4. 유지</b></td><td>나중에</td><td>구조 정리·개선</td></tr>
+</table>
+<div class="tip">헷갈리면 그냥 <code>/belier-start</code> 치고, 물어보면 답만 하세요. 알아서 안내합니다.</div>
+
+<h2>5. 자주 묻는 질문</h2>
+<p class="q">Q. 설치를 매번 해야 하나요?</p>
+<p class="a">아니요. <b>처음 한 번만</b> 하면 됩니다. 그 뒤로는 /belier-start만 치면 돼요.</p>
+<p class="q">Q. 작은 일에도 매번 /belier-start를 써야 하나요?</p>
+<p class="a">아니요. 주로 <b>새로 뭔가 시작할 때</b>나 <b>어떤 도구 쓸지 헷갈릴 때</b> 쓰면 됩니다.</p>
+<p class="q">Q. codex login이 뭐예요? 꼭 해야 하나요?</p>
+<p class="a">코드를 다른 AI가 한 번 더 검토해주는 기능이에요. <b>코드 작업을 직접 하는 사람만</b> 필요하고, 안 쓰면 건너뛰어도 됩니다.</p>
+<p class="q">Q. 설치하다가 "이거 직접 하세요"라고 떠요.</p>
+<p class="a">화면에 나온 한 줄을 그대로 복사해서 실행하면 됩니다. 잘 모르겠으면 그 화면을 캡처해서 담당자에게 보여주세요.</p>
+<p class="q">Q. 최신 버전으로 업데이트하려면?</p>
+<p class="a">Claude Code에 이렇게 치세요: <code>cd ~/.claude/skills/belier-start && git pull 해줘</code></p>
+
+<h2>6. 문제가 생기면</h2>
+<p>설치가 안 되거나 막히면 → <b>그 화면을 캡처</b>해서 팀 담당자에게 전달하세요. 캡처 한 장이면 대부분 바로 해결됩니다.</p>
+
+<p class="footer">🔗 도구 저장소: https://github.com/belier-bong/belier-start</p>
+
+</body>
+</html>
