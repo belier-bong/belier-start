@@ -54,26 +54,6 @@ bash ~/.claude/skills/belier-start/setup.sh --check
 
 setup.sh가 모든 설치를 idempotent하게 처리한다 (이미 있으면 건너뜀). 안전하게 여러 번 실행 가능.
 
-## STEP 0.5 — 동기화 (여러 컴퓨터에서 이어 작업)
-
-개인 프로젝트는 `~/Desktop/프로젝트` 모노레포(비공개 GitHub `belier-bong/belier-projects`)로 동기화된다. 집·회사·노트북 어디서든 이어서 작업.
-
-- **작업 시작 시 (Preflight 직후):** 먼저 받아온다.
-  ```bash
-  bash ~/.claude/skills/belier-start/sync.sh 받기
-  ```
-  → "다른 컴퓨터에서 한 작업 가져왔어요" 보고.
-- **작업이 끝나거나 단계가 마무리될 때:** 올린다.
-  ```bash
-  bash ~/.claude/skills/belier-start/sync.sh 저장
-  ```
-  → "올렸어요. 다른 컴퓨터에서 이어가도 됩니다" 보고.
-- **충돌·실패 시:** sync.sh가 강제로 덮어쓰지 않고 멈춘 뒤 평이한 한국어로 안내한다. 그 안내를 그대로 사용자에게 전하고, 자동 병합을 시도하지 말 것.
-- **새 컴퓨터 첫 세팅: 자동.** `~/Desktop/프로젝트`가 없으면 `sync.sh 받기`가 **알아서 통째로 clone**한다. 사용자가 clone 명령을 칠 필요 없음. (belier-start 도구 자체만 한 번 설치돼 있으면 됨)
-- belier-start 도구 자체는 이 모노레포에서 제외(.gitignore)되어 있고, 자기 공개 저장소로 따로 업데이트된다.
-
-새 프로젝트를 만들 때는 항상 `~/Desktop/프로젝트/<이름>/` 안에 만든다 (자동으로 동기화 대상에 포함됨).
-
 ---
 
 ## STEP 1 — 단계 판단 (질문 하나)
