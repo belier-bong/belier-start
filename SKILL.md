@@ -15,12 +15,24 @@ Evan의 4단계 개발 워크플로우를 한 흐름으로 묶는다.
 
 ## 4단계 라우팅 표 (두뇌)
 
-| Phase | 언제 | 발동 스킬 (순서대로) |
-|-------|------|----------------------|
-| 1 기획 | 새 프로젝트/기능 시작, "이거 만들까?" | `/office-hours` → `/grill-with-docs` |
-| 2 스펙 | 어떻게 만들지 정리, 기획 승인 후 | `/brainstorming` → `/writing-plans` |
-| 3 개발·검증 | 실제로 코드 짤 때, 스펙 승인 후 | `/subagent-driven-development` → `/codex review` → `/browse` |
-| 4 유지 | 리팩터링, 구조 정리, 출시 후 | `/improve-codebase-architecture` |
+| Phase | 언제 | 발동 스킬 (순서대로) | 자동 활용 에이전트 |
+|-------|------|----------------------|--------------------|
+| 1 기획 | 새 프로젝트/기능 시작, "이거 만들까?" | `/office-hours` → `/grill-with-docs` | `planner`, `architect` |
+| 2 스펙 | 어떻게 만들지 정리, 기획 승인 후 | `/brainstorming` → `/writing-plans` | `planner` (+필요시 `database-reviewer`) |
+| 3 개발·검증 | 실제로 코드 짤 때, 스펙 승인 후 | `/subagent-driven-development` → `/codex review` → `/browse` | 끝나면 `code-reviewer` + `security-reviewer` |
+| 4 유지 | 리팩터링, 구조 정리, 출시 후 | `/improve-codebase-architecture` | `refactor-cleaner`, `code-reviewer` |
+
+---
+
+## 에이전트 연동 (C+ 방식)
+
+이 워크플로우는 **여러 에이전트가 역할을 나눠 진행**한다. 새 에이전트를 떼로 만들지 않는다 — 이미 있는 걸 단계에 맞게 부른다.
+
+**규칙:**
+1. 각 단계에서 위 표의 "자동 활용 에이전트"를 Agent 도구로 호출한다. 호출 시 1줄 보고: "이 단계는 `planner` 에이전트가 돕습니다."
+2. **에이전트가 없으면 막지 않는다.** `~/.claude/agents/`나 `.claude/agents/`에 해당 에이전트가 없으면 건너뛰고 "이 단계는 ○○ 에이전트가 있으면 더 좋아요"만 안내한다.
+3. **특수 역할 제안.** 그 프로젝트만의 특수 작업(예: "BELIER 발주 데이터 검증")이 반복되면, **딱 1개**를 제안한다: "이 프로젝트엔 ○○ 전담 에이전트가 있으면 좋겠는데, 만들까요?" 승인 시에만 `.claude/agents/<이름>.md`를 만든다. 남발 금지.
+4. 에이전트 호출도 **단계 승인 게이트 안에서**만. 자동으로 다음 단계로 넘어가지 않는다.
 
 ---
 
