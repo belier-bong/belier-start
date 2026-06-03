@@ -7,12 +7,25 @@
 set -uo pipefail
 
 PROJ="$HOME/Desktop/프로젝트"
+REPO_URL="https://github.com/belier-bong/belier-projects"
 MODE="${1:-}"
 
+# 새 컴퓨터 자동 부트스트랩: 저장소가 없으면 알아서 통째로 받아온다.
 if [ ! -d "$PROJ/.git" ]; then
-  echo "⚠ 아직 동기화 저장소가 없어요. 새 컴퓨터면 먼저 받아오세요:"
-  echo "    git clone https://github.com/belier-bong/belier-projects \"$PROJ\""
-  exit 1
+  if [ ! -d "$PROJ" ] || [ -z "$(ls -A "$PROJ" 2>/dev/null)" ]; then
+    echo "▶ 이 컴퓨터엔 프로젝트가 아직 없네요. 처음이라 통째로 받아옵니다..."
+    if git clone "$REPO_URL" "$PROJ" 2>/dev/null; then
+      echo "✓ 모든 프로젝트를 가져왔어요. 바로 이어서 작업하면 됩니다."
+      [ "$MODE" = "받기" ] || [ "$MODE" = "pull" ] && exit 0
+    else
+      echo "⚠ 받아오기 실패 (인터넷/권한 확인). 수동: git clone $REPO_URL \"$PROJ\""
+      exit 1
+    fi
+  else
+    echo "⚠ '$PROJ' 폴더에 파일이 있는데 동기화 저장소가 아니에요."
+    echo "   덮어쓰면 위험해서 멈췄습니다. 이 화면을 담당자(또는 Claude)에게 보여주세요."
+    exit 1
+  fi
 fi
 
 cd "$PROJ" || exit 1
